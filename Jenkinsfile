@@ -36,7 +36,7 @@ pipeline {
         stage('Deploy to Tomcat using Ansible') {
             steps {
                 sh '''
-                  ansible-playbook ansible/ansible_playbook.yml -i ansible/inventory.ini
+                  ansible-playbook Amazon/ansible/ansible_playbook.yml -i Amazon/ansible/inventory.ini
                 '''
             }
         }
