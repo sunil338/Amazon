@@ -16,7 +16,7 @@ pipeline {
 
         stage('Build & Unit Test') {
             steps {
-                sh 'mvn clean verify'
+                sh 'mvn clean install'
             }
         }
 
