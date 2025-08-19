@@ -28,7 +28,7 @@ pipeline {
             steps {
                 dir('Amazon') {   // 👈 again inside Amazon
                     sh 'mvn package'
-                    archiveArtifacts artifacts: 'target/*.war', fingerprint: true
+                    archiveArtifacts artifacts: 'Amazon-Web/target/*.war', fingerprint: true
                 }
             }
         }
