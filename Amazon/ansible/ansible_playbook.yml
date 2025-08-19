@@ -1,4 +1,4 @@
-- hosts: tomcat
+- hosts: localhost
   become: yes
   tasks:
     - name: Copy WAR to Tomcat
@@ -9,5 +9,5 @@
 
     - name: Restart Tomcat
       service:
-        name: tomcat9
+        name: tomcat
         state: restarted
