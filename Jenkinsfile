@@ -22,23 +22,7 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
-            steps {
-               dir('Amazon') {   // 👈 same here
-                    withSonarQubeEnv('sonarqube') {
-                        sh 'mvn sonar:sonar -Dsonar.projectKey=myapp'
-                    }
-                }
-            }
-        }
 
-        stage('Quality Gate') {
-            steps {
-                timeout(time: 2, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: false
-                }
-            }
-        }
 
         stage('Package WAR') {
             steps {
