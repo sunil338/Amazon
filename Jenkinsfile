@@ -1,55 +1,56 @@
 pipeline {
     agent any
     tools {
-        jdk 'JDK17'        
-        maven 'Maven3'      
+        jdk 'JDK17'
+        maven 'Maven3'
     }
     environment {
-        SONARQUBE = 'sonarqube'  
+        SONARQUBE = 'sonarqube'
     }
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'master', url: 'https://github.com/sunil338/Amazon.git'
+                git branch: 'main', url: 'https://github.com/YOUR_USER/YOUR_REPO.git'
             }
         }
-
         stage('Build & Unit Test') {
             steps {
-                dir('Amazon') {
-                    sh 'mvn clean install'
+                dir('Amazon') {  
+                    sh 'mvn clean verify'
                 }
             }
         }
-
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('sonarqube') {
-                    sh 'mvn sonar:sonar -Dsonar.projectKey=myapp'
+                dir('Amazon') {  
+                    withSonarQubeEnv('sonarqube') {
+                        sh 'mvn sonar:sonar -Dsonar.projectKey=myapp'
+                    }
                 }
             }
         }
-
         stage('Quality Gate') {
             steps {
-                timeout(time: 5, unit: 'MINUTES') {
+                timeout(time: 2, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
             }
         }
-
         stage('Package WAR') {
             steps {
-                sh 'mvn package'
-                archiveArtifacts artifacts: 'target/*.war', fingerprint: true
+                dir('Amazon') {  
+                    sh 'mvn package'
+                    archiveArtifacts artifacts: 'target/*.war', fingerprint: true
+                }
             }
         }
-
         stage('Deploy to Tomcat using Ansible') {
             steps {
-                sh '''
-                  ansible-playbook Amazon/ansible/ansible_playbook.yml -i Amazon/ansible/inventory.ini
-                '''
+                sshagent(['ansible_ssh_key']) {
+                    sh '''
+                      ansible-playbook ansible/deploy.yml -i ansible/inventory/hosts
+                    '''
+                }
             }
         }
     }
