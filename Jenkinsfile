@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/YOUR_USER/YOUR_REPO.git'
+                git branch: 'main', url: 'https://github.com/sunil338/Amazon.git'
             }
         }
         stage('Build & Unit Test') {
