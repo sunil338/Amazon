@@ -1,0 +1,13 @@
+- hosts: tomcat
+  become: yes
+  tasks:
+    - name: Copy WAR to Tomcat
+      copy:
+        src: target/Amazon.war
+        dest: /home/sunil/batch11/ansible/sonar/sonar_tomcat/webapps
+        mode: '0644'
+
+    - name: Restart Tomcat
+      service:
+        name: tomcat9
+        state: restarted
