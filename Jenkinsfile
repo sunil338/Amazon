@@ -33,12 +33,13 @@ pipeline {
             }
         }
 
-        stage('Deploy to Tomcat using Ansible') {
+        stage('Deploy') {
             steps {
-                sh '''
-                  ansible-playbook Amazon/ansible/ansible_playbook.yml -i Amazon/ansible/inventory.ini
-                '''
+                dir('ansible') {
+                    sh 'ansible-playbook -i inventory.ini playbook.yml'
+                }
             }
+        }
         }
     }
 }
