@@ -16,7 +16,9 @@ pipeline {
 
         stage('Build & Unit Test') {
             steps {
-                sh 'mvn clean install'
+                dir('Amazon') {
+                    sh 'mvn clean install'
+                }
             }
         }
 
