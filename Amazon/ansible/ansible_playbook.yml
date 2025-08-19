@@ -3,7 +3,7 @@
   tasks:
     - name: Copy WAR to Tomcat
       copy:
-        src: Amazon/Amazon-Web/target/Amazon.war
+        src: Amazon-Web/target/Amazon.war
         dest: /home/sunil/batch11/ansible/sonar/sonar_tomcat/webapps
         mode: '0644'
 
