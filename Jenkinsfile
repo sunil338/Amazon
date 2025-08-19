@@ -33,14 +33,6 @@ pipeline {
             }
         }
 
-        stage('Debug') {
-    steps {
-        sh 'pwd'
-        sh 'ls -R'
-    }
-}
-
-
         stage('Deploy to Tomcat using Ansible') {
             steps {
                 sh '''
