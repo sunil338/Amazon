@@ -3,7 +3,7 @@
   tasks:
     - name: Copy WAR to Tomcat
       copy:
-        src: Amazon-Web/target/Amazon.war
+        src: /var/lib/jenkins/workspace/sdlc/devops_login/target/devops_login-0.0.2-SNAPSHOT.war
         dest: /home/sunil/batch11/ansible/sonar/sonar_tomcat/webapps
         mode: '0644'
 
