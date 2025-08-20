@@ -35,7 +35,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                dir('Amazon/Amazon/ansible') {
+                dir('Amazon/ansible') {
                     sh 'ansible-playbook -i inventory.ini ansible_playbook.yml'
                 }
             }
